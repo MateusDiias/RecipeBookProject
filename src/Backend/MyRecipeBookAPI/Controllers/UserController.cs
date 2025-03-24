@@ -1,19 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
 using MyRecipeBook.Communication.Responses;
 
 namespace MyRecipeBookAPI.Controllers
 {
+    // Controller contendo os endpoints do usuário.
     [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-        public IActionResult Registrer(RequestRegisterUserJson request)
+        public async Task<IActionResult> Register([FromServices] IRegisterUserUseCase useCase, [FromBody] RequestRegisterUserJson request)
         {
-            return Created();
+            // Cria uma instância do UseCase, em seguida chama a função Execute, se não retornar erro, retorna um Created.
+            var result = await useCase.Execute(request);
+            
+            return Created(string.Empty, result); 
         }
     }
 }
