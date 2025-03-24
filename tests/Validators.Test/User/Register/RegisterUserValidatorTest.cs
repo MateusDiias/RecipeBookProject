@@ -1,0 +1,87 @@
+﻿using CommonTestUtilities.Requests;
+using MyRecipeBook.Application.UseCases.User.Register;
+using MyRecipeBook.Exceptions;
+using Shouldly;
+
+namespace Validators.Test.User.Register;
+
+// Classe de teste para o Validator
+public class RegisterUserValidatorTest
+{
+    // annotation para indicar um teste
+    [Fact]
+    public void Success()
+    {
+        var validator = new RegisterUserValidator();
+        var resquest = RequestRegisterUserJsonBuilder.Build();
+
+        var result = validator.Validate(resquest);
+
+        result.IsValid.ShouldBeTrue();
+    }
+    
+    [Fact]
+    public void Error_Name_Empty()
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Name = String.Empty;
+
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(
+            errors => errors.ShouldHaveSingleItem(),
+            error => error.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.NAME_EMPTY)));
+    }
+    
+    [Fact]
+    public void Error_Email_Empty()
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Email = String.Empty;
+
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(
+            errors => errors.ShouldHaveSingleItem(),
+            error => error.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.EMAIL_EMPTY)));
+    }
+    
+    [Fact]
+    public void Error_Email_Invalid()
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Email = "emailinvalido.com";
+
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(
+            errors => errors.ShouldHaveSingleItem(),
+            error => error.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.EMAIL_INVALID)));
+    }
+    
+    // Outra maneira de indicar testes, mas agora é um teste mais complexo, indica que essa funcao vai ser executada varias vezes, loop.
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    [InlineData(5)]
+    public void Error_Password_Invalid(int passwordLength)
+    {
+        var validator = new RegisterUserValidator();
+
+        var request = RequestRegisterUserJsonBuilder.Build(passwordLength);
+        var result = validator.Validate(request);
+
+        result.IsValid.ShouldBeFalse();
+        result.Errors.ShouldSatisfyAllConditions(
+            errors => errors.ShouldHaveSingleItem(),
+            error => error.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_INVALID)));
+    }
+}
