@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyRecipeBook.Domain\MyRecipeBook.Domain.csproj" />
+    <PackageReference Include="Bogus" Version="35.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Shared\MyRecipeBook.Communication\MyRecipeBook.Communication.csproj" />
   </ItemGroup>
 
 </Project>
