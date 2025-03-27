@@ -15,11 +15,11 @@ namespace MyRecipeBook.Application.UseCases.User.Register
     {
         private readonly IUserReadOnlyRepository _readOnlyRepository;
         private readonly IUserWriteOnlyRepository _writeOnlyRepository;
-        private readonly IUnitWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly PasswordEncripter _passwordEncripter;
 
-        public RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, IMapper mapper, PasswordEncripter passwordEncripter, IUnitWork unitOfWork)
+        public RegisterUserUseCase(IUserReadOnlyRepository readOnlyRepository, IUserWriteOnlyRepository writeOnlyRepository, IMapper mapper, PasswordEncripter passwordEncripter, IUnitOfWork unitOfWork)
         {
             _readOnlyRepository = readOnlyRepository;
             _writeOnlyRepository = writeOnlyRepository;
