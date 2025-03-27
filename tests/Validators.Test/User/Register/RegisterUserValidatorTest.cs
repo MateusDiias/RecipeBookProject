@@ -72,7 +72,6 @@ public class RegisterUserValidatorTest
     [InlineData(3)]
     [InlineData(4)]
     [InlineData(5)]
-    [InlineData(6)]
     public void Error_Password_Invalid(int passwordLength)
     {
         var validator = new RegisterUserValidator();

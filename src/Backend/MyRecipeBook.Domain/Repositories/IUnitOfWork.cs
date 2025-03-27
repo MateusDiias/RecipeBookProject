@@ -1,6 +1,6 @@
 ﻿namespace MyRecipeBook.Domain.Repositories
 {
-    public interface IUnitWork
+    public interface IUnitOfWork
     {
         public Task Commit();
     }
