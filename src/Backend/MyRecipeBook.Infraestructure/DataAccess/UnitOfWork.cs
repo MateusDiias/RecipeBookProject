@@ -3,7 +3,7 @@ using MyRecipeBook.Infraestructure.DataAccess;
 
 namespace MyRecipeBook.Infrastructure.DataAccess
 {
-    public class UnitOfWork : IUnitWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly MyRecipeBookDbContext _dbContext;
 
