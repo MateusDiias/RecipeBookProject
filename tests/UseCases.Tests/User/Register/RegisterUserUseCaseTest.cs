@@ -21,7 +21,7 @@ namespace UseCases.Tests.User.Register
             
             var result = await useCase.Execute(request);
 
-            result.ShouldNotBeNull(); 
+            result.ShouldNotBeNull();
             result.Name.ShouldBe(request.Name);
         }
 
