@@ -33,7 +33,6 @@ namespace MyRecipeBook.Infrastructure.Migrations
 
             if (records.Any() == false)
                 dbConnection.Execute($"CREATE DATABASE {databaseName}");
-
         }
 
         private static void MigrationDatabase(IServiceProvider serviceProvider)

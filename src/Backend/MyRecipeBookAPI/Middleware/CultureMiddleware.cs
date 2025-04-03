@@ -14,7 +14,7 @@ namespace MyRecipeBookAPI.Middleware
             _next = next;
         }
 
-        //Toda middleware em ASP.NET deve conter este método abaixo:
+        //Toda middleware em ASP.NET deve conter o método Invoke:
         public async Task Invoke(HttpContext context)
         {
             var supportedLanguages = CultureInfo.GetCultures(CultureTypes.AllCultures);

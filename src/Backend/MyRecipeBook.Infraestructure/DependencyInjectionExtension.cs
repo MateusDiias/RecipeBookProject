@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,8 @@ namespace MyRecipeBook.Infraestructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             AddRepositories(services);
+
+            if (configuration.isUnitTestEnvoriment()) return;
             AddDbContext_SqlServer(services, configuration);
             AddFluentMigrator_SqlServer(services, configuration);
         }
