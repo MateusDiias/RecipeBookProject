@@ -13,9 +13,9 @@ public class RegisterUserValidatorTest
     public void Success()
     {
         var validator = new RegisterUserValidator();
-        var resquest = RequestRegisterUserJsonBuilder.Build();
+        var request = RequestRegisterUserJsonBuilder.Build();
 
-        var result = validator.Validate(resquest);
+        var result = validator.Validate(request);
 
         result.IsValid.ShouldBeTrue();
     }
