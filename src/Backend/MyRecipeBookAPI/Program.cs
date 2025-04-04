@@ -39,7 +39,7 @@ app.MapControllers();
 
 MigrateDatabase();
 
-app.Run();
+await app.RunAsync();
 
 void MigrateDatabase()
 {
@@ -50,5 +50,5 @@ void MigrateDatabase()
 
 public partial class Program
 {
-
+    protected Program() { }
 }

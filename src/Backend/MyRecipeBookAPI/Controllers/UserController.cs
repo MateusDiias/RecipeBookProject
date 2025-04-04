@@ -18,7 +18,7 @@ namespace MyRecipeBookAPI.Controllers
             // Cria uma instância do UseCase, em seguida chama a função Execute, se não retornar erro, retorna um Created.
             var result = await useCase.Execute(request);
             
-            return Created(string.Empty, result); 
+            return Created(string.Empty, result);
         }
     }
 }
