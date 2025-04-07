@@ -12,6 +12,7 @@ namespace WebApi.Test.User.Register
     // Teste de integração. para sinalizar esse tipo de teste, deve herdar da classe IClassFixture, passando um servidor T, o .net disponibiliza um servidor 
     public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
+        private readonly string method = "user";
         private readonly HttpClient _httpClient;
 
         public RegisterUserTest(CustomWebApplicationFactory factory)
@@ -24,7 +25,7 @@ namespace WebApi.Test.User.Register
         {
             var request = RequestRegisterUserJsonBuilder.Build();
 
-            var response = await _httpClient.PostAsJsonAsync("User", request);
+            var response = await _httpClient.PostAsJsonAsync(method, request);
 
             response.StatusCode.ShouldBe(HttpStatusCode.Created);
 
@@ -52,7 +53,7 @@ namespace WebApi.Test.User.Register
 
             _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
 
-            var response = await _httpClient.PostAsJsonAsync("User", request);
+            var response = await _httpClient.PostAsJsonAsync(method, request);
 
             response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 

@@ -82,6 +82,6 @@ public class RegisterUserValidatorTest
         result.IsValid.ShouldBeFalse();
         result.Errors.ShouldSatisfyAllConditions(
             errors => errors.ShouldHaveSingleItem(),
-            error => error.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_INVALID)));
+            error => error.ShouldContain(e => e.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_MUST_BE_LONGER_THAN_6_CHARACTERS)));
     }
 }
