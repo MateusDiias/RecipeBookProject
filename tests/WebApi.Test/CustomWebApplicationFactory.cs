@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CommonTestUtilities.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Infraestructure.DataAccess;
 
 
@@ -10,6 +12,9 @@ namespace WebApi.Test
     // classe criada para customizar o WebApplicationFactory(servidor do .net), para criação do banco InMemory
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
+        private MyRecipeBook.Domain.Entities.User _user;
+        private string _password;
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Test")
@@ -25,8 +30,29 @@ namespace WebApi.Test
                     {
                         options.UseInMemoryDatabase("InMemoryDbForTesting");
                         options.UseInternalServiceProvider(provider);
-                    });  
+                    });
+
+                    using var scope = services.BuildServiceProvider().CreateScope();
+
+                    var dbContext = scope.ServiceProvider.GetRequiredService<MyRecipeBookDbContext>();
+
+                    dbContext.Database.EnsureDeleted();
+
+                    StartDatabase(dbContext);  
                 });
+        }
+
+        public string getEmail() => _user.Email;
+        public string getPassword() => _password;
+        public string getName() => _user.Name;
+
+        private void StartDatabase(MyRecipeBookDbContext dbContext)
+        {
+            (_user, _password) = UserBuilder.Build();
+
+            dbContext.Users.Add(_user);
+
+            dbContext.SaveChanges();
         }
     }
 }
