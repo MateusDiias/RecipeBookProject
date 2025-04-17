@@ -43,10 +43,13 @@ namespace WebApi.Test.User.Login.DoLogin
 
             var responseData = await JsonDocument.ParseAsync(responseBody);
 
-            
             responseData.RootElement.GetProperty("name").GetString().ShouldSatisfyAllConditions(
                 name => name.ShouldNotBeNullOrWhiteSpace(),
                 name => name.ShouldBe(_name));
+
+            var token = responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString();
+            token.ShouldNotBeNullOrWhiteSpace();
+
 
         }
 

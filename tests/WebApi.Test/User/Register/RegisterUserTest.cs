@@ -36,6 +36,8 @@ namespace WebApi.Test.User.Register
             responseData.RootElement.GetProperty("name").GetString().ShouldSatisfyAllConditions(
                 name => name.ShouldNotBeNullOrWhiteSpace(),
                 name => name.ShouldBe(request.Name));
+            
+            responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().ShouldNotBeNullOrEmpty();
         }
 
         [Theory]
