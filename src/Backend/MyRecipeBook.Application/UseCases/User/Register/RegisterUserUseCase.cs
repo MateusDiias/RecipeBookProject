@@ -64,7 +64,7 @@ namespace MyRecipeBook.Application.UseCases.User.Register
             var validator = new RegisterUserValidator();
             var result = validator.Validate(request);
 
-            var emailExist = await _readOnlyRepository.ExistAciveUserWithEmail(request.Email);
+            var emailExist = await _readOnlyRepository.ExistActiveUserWithEmail(request.Email);
             if (emailExist)
             {
                 result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyRecipeBook.API.Attributes;
 using MyRecipeBook.API.Controllers;
 using MyRecipeBook.Application.UseCases.User.Register;
 using MyRecipeBook.Communication.Requests;
@@ -8,6 +9,7 @@ using MyRecipeBook.Communication.Responses;
 namespace MyRecipeBookAPI.Controllers
 {
     // Controller contendo os endpoints do usuário.
+    [AuthenticatedUser]
     public class UserController : MyRecipeBookBaseController
     {
         [HttpPost]

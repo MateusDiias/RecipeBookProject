@@ -12,6 +12,7 @@ using MyRecipeBook.Infraestructure.DataAccess.Repositories;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.Extensions;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
+using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
 
 namespace MyRecipeBook.Infraestructure
 {
@@ -66,6 +67,7 @@ namespace MyRecipeBook.Infraestructure
 
 
             services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
+            services.AddScoped<IAccesTokenValidator>(option => new JwtTokenValidator(signingKey!));
         }
     }
 }

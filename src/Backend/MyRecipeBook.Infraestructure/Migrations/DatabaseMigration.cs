@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using FluentMigrator.Runner;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MyRecipeBook.Infrastructure.Migrations

@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using CommonTestUtilities.Requests;
 using MyRecipeBook.Communication.Requests;
@@ -49,8 +48,6 @@ namespace WebApi.Test.User.Login.DoLogin
 
             var token = responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString();
             token.ShouldNotBeNullOrWhiteSpace();
-
-
         }
 
         [Theory]

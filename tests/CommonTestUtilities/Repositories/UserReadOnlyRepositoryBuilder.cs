@@ -15,7 +15,7 @@ namespace CommonTestUtilities.Repositories
 
         public void ExistAciveUserWithEmail(string email)
         {
-            _repository.Setup(repository => repository.ExistAciveUserWithEmail(email)).ReturnsAsync(true);
+            _repository.Setup(repository => repository.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
         }
         
         public void GetByEmailAndPassword(User user)
