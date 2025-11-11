@@ -1,10 +1,9 @@
 ﻿using System.Globalization;
-using System.Runtime.Versioning;
 
 namespace MyRecipeBookAPI.Middleware
 {
     // Middleware, usado para interceptar uma requisição antes de chegar ao controller.
-    // Essa middleware será usado para alterar a "Cultura" da aplicação/identificar o idioma e altarar.
+    // Essa middleware será usado para alterar a "Cultura" da aplicação/identificar o idioma e alterar.
     public class CultureMiddleware
     {
         private readonly RequestDelegate _next;

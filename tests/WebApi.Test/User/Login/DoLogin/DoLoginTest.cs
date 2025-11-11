@@ -20,9 +20,9 @@ namespace WebApi.Test.User.Login.DoLogin
 
         public DoLoginTest(CustomWebApplicationFactory factory) : base(factory) 
         {
-            _email = factory.getEmail();
-            _password = factory.getPassword();
-            _name = factory.getName();
+            _email = factory.GetEmail();
+            _password = factory.GetPassword();
+            _name = factory.GetName();
         }
 
         [Fact]

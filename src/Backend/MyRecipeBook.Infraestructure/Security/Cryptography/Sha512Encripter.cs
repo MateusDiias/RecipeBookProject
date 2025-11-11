@@ -1,14 +1,14 @@
-﻿using System.Globalization;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
+using MyRecipeBook.Domain.Security.Cryptography;
 
-namespace MyRecipeBook.Application.Services.Cryptography
+namespace MyRecipeBook.Infrastructure.Security.Cryptography
 {
-    public class PasswordEncripter
+    public class Sha512Encripter : IPasswordEncripter
     {
         private readonly string _additionalKey;
 
-        public PasswordEncripter(string additionalKey)
+        public Sha512Encripter(string additionalKey)
         {
             _additionalKey = additionalKey;
         }
@@ -26,7 +26,8 @@ namespace MyRecipeBook.Application.Services.Cryptography
         private static string StringBytes(byte[] bytes)
         {
             var sb = new StringBuilder();
-            foreach (byte b in bytes) {
+            foreach (byte b in bytes)
+            {
                 sb.Append(b.ToString("x2"));
             }
             return sb.ToString();

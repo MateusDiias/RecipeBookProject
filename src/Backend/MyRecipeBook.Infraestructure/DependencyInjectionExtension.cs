@@ -1,18 +1,21 @@
 ﻿using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Domain.Repositories.User;
+using MyRecipeBook.Domain.Security.Cryptography;
 using MyRecipeBook.Domain.Security.Tokens;
+using MyRecipeBook.Domain.Services.LoggedUser;
 using MyRecipeBook.Infraestructure.DataAccess;
 using MyRecipeBook.Infraestructure.DataAccess.Repositories;
 using MyRecipeBook.Infrastructure.DataAccess;
 using MyRecipeBook.Infrastructure.Extensions;
+using MyRecipeBook.Infrastructure.Security.Cryptography;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Generator;
 using MyRecipeBook.Infrastructure.Security.Tokens.Access.Validator;
+using MyRecipeBook.Infrastructure.Services.LoggedUser;
 
 namespace MyRecipeBook.Infraestructure
 {
@@ -20,8 +23,10 @@ namespace MyRecipeBook.Infraestructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            AddPasswordEncripter(services, configuration);
             AddRepositories(services);
             AddTokens(services, configuration);
+            AddLoggedUser(services);
 
 
             if (configuration.isUnitTestEnvoriment()) return;
@@ -45,6 +50,7 @@ namespace MyRecipeBook.Infraestructure
 
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+            services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         }
 
         private static void AddFluentMigrator_SqlServer(IServiceCollection services, IConfiguration configuration)
@@ -68,6 +74,20 @@ namespace MyRecipeBook.Infraestructure
 
             services.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
             services.AddScoped<IAccesTokenValidator>(option => new JwtTokenValidator(signingKey!));
+        }
+
+        public static void AddLoggedUser(IServiceCollection services)
+        {
+            services.AddScoped<ILoggedUser, LoggedUser>();
+        }
+
+        private static void AddPasswordEncripter(IServiceCollection services, IConfiguration configuration)
+        {
+            //var additionalKey = configuration.GetSection("Settings:Password:AdditionalKey").Value;
+            //o .Value do método acima sempre vai retornar String, portanto não é flexível. melhoria:
+            var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
+
+            services.AddScoped<IPasswordEncripter>(option => new Sha512Encripter(additionalKey!));
         }
     }
 }

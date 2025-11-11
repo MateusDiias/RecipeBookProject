@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Infraestructure.DataAccess;
 
 
@@ -42,9 +41,10 @@ namespace WebApi.Test
                 });
         }
 
-        public string getEmail() => _user.Email;
-        public string getPassword() => _password;
-        public string getName() => _user.Name;
+        public string GetEmail() => _user.Email;
+        public string GetPassword() => _password;
+        public string GetName() => _user.Name;
+        public Guid GetUserIdentifier() => _user.UserIdentifier;
 
         private void StartDatabase(MyRecipeBookDbContext dbContext)
         {

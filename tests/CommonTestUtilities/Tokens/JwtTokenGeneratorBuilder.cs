@@ -7,7 +7,7 @@ namespace CommonTestUtilities.Tokens
     {
         public static IAccessTokenGenerator Build()
         {
-            return new JwtTokenGenerator(5, "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+            return new JwtTokenGenerator(5, "e9KgGniQPFt2mitEn4PTw1cX3SKEgim2");
         }
     }
 }

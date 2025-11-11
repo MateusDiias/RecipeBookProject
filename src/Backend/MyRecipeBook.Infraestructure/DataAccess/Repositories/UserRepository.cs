@@ -4,7 +4,7 @@ using MyRecipeBook.Domain.Repositories.User;
 
 namespace MyRecipeBook.Infraestructure.DataAccess.Repositories
 {
-    public class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository
+    public class UserRepository : IUserWriteOnlyRepository, IUserReadOnlyRepository, IUserUpdateOnlyRepository
     {
         // private, pois somente a classe vai poder usar a propriedade
         // readonly, pois somente o constructor pode alterar a instancia do _dbContext
@@ -38,6 +38,18 @@ namespace MyRecipeBook.Infraestructure.DataAccess.Repositories
                 //pesquisar sobre o AsNoTracking
                 .AsNoTracking()
                 .FirstOrDefaultAsync(user => user.Active && user.Email.Equals(email) && user.Password.Equals(password));
+        }
+
+        public async Task<User> GetById(long id)
+        {
+            return await _dbContext
+                .Users
+                .FirstAsync(user => user.Id.Equals(id));
+        }
+
+        public void Update(User user)
+        {
+            _dbContext.Users.Update(user);
         }
     }
 }
